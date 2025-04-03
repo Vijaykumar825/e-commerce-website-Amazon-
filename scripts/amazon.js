@@ -1,4 +1,4 @@
-import {cart,addtoCart} from '../data/cart.js';//.. -> get out from the current folder
+import {cart,addtoCart, saveToStorage} from '../data/cart.js';//.. -> get out from the current folder
 import { product } from '../data/products.js';
 let productHTML ='';
 
@@ -69,16 +69,17 @@ function updateCartquantity(){
 
   });
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  saveToStorage();
 }
 
 //main code which calls the functions
+
+updateCartquantity();
 document.querySelectorAll('.js_add_to_cart').forEach((button) => {
   button.addEventListener('click',() => {
     //console.log('Added product');(
     const productId = button.dataset.productId;
     addtoCart(productId);
     updateCartquantity();
-    
-    
   });
 });
