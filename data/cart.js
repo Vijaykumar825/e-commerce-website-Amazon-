@@ -60,3 +60,20 @@ export function removeFromCart(productId) {
 
   saveToStorage();
 }
+
+
+export function updateDeliveryOption(productId,deliveryOptionId) {
+  let machingitem;
+
+  cart.forEach((cartitem) => {
+    if(productId === cartitem.productId){
+      machingitem = cartitem;
+
+    }
+
+  });
+
+  machingitem.deliveryOptionId = deliveryOptionId;
+  saveToStorage();
+
+}
