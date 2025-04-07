@@ -79,6 +79,33 @@ function logThis(){
 }
 logThis();
 */
+export let product = [];
+export function loadProducts(fun){
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load',() =>{
+    product = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+    
+      }
+      return new Product (productDetails);
+      
+    
+    });
+
+    console.log('load Products');
+    fun();
+    
+
+  });
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
+}
+
+
+/*
+This is before completion of the project--- the below code is used from front which is no longer need to replace we use data from the back end
+
 
 export const product = [
   {
@@ -750,7 +777,7 @@ export const product = [
   return new Product (productDetails);
 
 });
-
+*/
 
 
 
