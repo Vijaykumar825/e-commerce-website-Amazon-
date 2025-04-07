@@ -31,10 +31,32 @@ class Product {
 
   }
   getPrice() {
-    return `${formatCurrency(this.priceCents)}`;
+    return `$${formatCurrency(this.priceCents)}`;
 
   }
+  extraInfoHTML(){
+    return '';
+  }
 }
+
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    return `
+    <a href = "${this.sizeChartLink}" target = "_blank">
+      Size Chart
+    </a>
+    `;
+  }
+
+}
+
 
 export const product = [
   {
@@ -45,7 +67,12 @@ export const product = [
     stars: 4.5,
     count: 87
   },
-  priceCents: 1090
+  priceCents: 1090,
+  keywords: [
+    "socks",
+    "sports",
+    "apparel"
+  ]
 
 }, {
   id: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
@@ -55,7 +82,11 @@ export const product = [
     stars: 4,
     count: 127,
   },
-  priceCents:2095
+  priceCents:2095,
+  keywords: [
+    "sports",
+    "basketballs"
+  ]
 
 },{
   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
@@ -66,16 +97,28 @@ export const product = [
     count:56
     
   },
-  priceCents:799
+  priceCents:799,
+  keywords: [
+    "tshirts",
+    "apparel",
+    "mens"
+  ],
+  type: "clothing",
+  sizeChartLink: "images/clothing-size-chart.png"
 }, {
   id: "54e0eccd-8f36-462b-b68a-8182611d9add",
   image:'images/products/black-2-slot-toaster.jpg',
   name:'2 Slot Toaster - Black',
   rating:{
-    stars:4.5,
-    count:56
+    stars:4,
+    count:2197
   },
-  priceCents:1080
+  priceCents:1899,
+  keywords: [
+    "toaster",
+    "kitchen",
+    "appliances"
+  ]
 },{
   id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
   image: "images/products/6-piece-white-dinner-plate-set.jpg",
@@ -90,9 +133,6 @@ export const product = [
     "kitchen",
     "dining"
   ]
-
-  
-
 },
 {
   id: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
@@ -121,7 +161,9 @@ export const product = [
     "hoodies",
     "sweaters",
     "apparel"
-  ]
+  ],
+  type: "clothing",
+  sizeChartLink: "images/clothing-size-chart.png"
 },
 {
   id: "77919bbe-0e56-475b-adde-4f24dfed3a04",
@@ -247,7 +289,9 @@ export const product = [
     "shorts",
     "apparel",
     "mens"
-  ]
+  ],
+  type: "clothing",
+  sizeChartLink: "images/clothing-size-chart.png"
 },
 {
   id: "c2a82c5e-aff4-435f-9975-517cfaba2ece",
@@ -677,6 +721,10 @@ export const product = [
   ]
 }
 ].map((productDetails) => {
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+
+  }
   return new Product (productDetails);
 
 });
